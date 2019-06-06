@@ -10,12 +10,9 @@ const HEIGHT = 6;
 
 const currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
-
 /** makeBoard: create in-JS board structure:
- *    board = array of rows, each row is array of cells  (board[y][x])
- */
+ *    board = array of rows, each row is array of cells  (board[y][x])*/
 
-const WIDTH = 7;
 function makeBoard(WIDTH,HEIGHT) {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   for(let i=0;i<HEIGHT;i++){
@@ -32,7 +29,7 @@ function makeBoard(WIDTH,HEIGHT) {
 
 function makeHtmlBoard() {
   // TODO: get "board" variable from the item in HTML w/ID of "board"
-
+let board = document.getElementById("board");
   // TODO: add comment for this code
   let top = document.createElement("tr");
   top.setAttribute("id", "column-top");
@@ -45,7 +42,7 @@ function makeHtmlBoard() {
   }
   board.append(top);
 
-  // TODO: add comment for this code
+  // Creates HTML Board. Adjust HEIGHT/WIDTH variables to adjust board size.
   for (var y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
     for (var x = 0; x < WIDTH; x++) {
@@ -68,6 +65,15 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  let tds = document.querySelectorAll("#td");
+  tds.forEach(td =>{
+    if(currPlayer === 1){
+      document.createElement("div").classList.add("piece p1")
+    } else {
+      document.createElement("div").classList.add("piece p2")
+    }
+  })
+
 }
 
 /** endGame: announce game end */

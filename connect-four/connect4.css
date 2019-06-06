@@ -7,6 +7,9 @@ td {
 }
 
 /* pieces are div within game table cells: draw as colored circles */
+div {
+  border-radius: 50px;
+}
 
 .piece {
   /* TODO: make into circles */
@@ -16,6 +19,12 @@ td {
 }
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
+.p1 {
+  color: red;
+}
+.p2 {
+  color: blue;
+}
 
 /* column-top is table row of clickable areas for each column */
 
