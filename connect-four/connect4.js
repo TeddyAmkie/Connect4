@@ -13,7 +13,7 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])*/
 
-function makeBoard(WIDTH,HEIGHT) {
+function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   for(let i=0;i<HEIGHT;i++){
     var temp =[];
@@ -57,24 +57,36 @@ let board = document.getElementById("board");
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  let i = HEIGHT-1;
+  console.log(board[i][x])
+  while(i > -1 && board[i][x] !== null) {
+    i--
+  }
+  board[i][x] = 1;
+    return i;
 }
+
+  
+// while(board[i][x] !== null) {
+//   i--;
+//}
+  // TODO: write the real version of this, rather than always returning 0
+  //return i;
+// }
 
 /** placeInTable: update DOM to place piece into HTML board */
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
-  let tds = document.querySelectorAll("#td");
-  tds.forEach(td =>{
-    if(currPlayer === 1){
-      document.createElement("div").classList.add("piece p1")
-    } else {
-      document.createElement("div").classList.add("piece p2")
-    }
-  })
+  let td = document.getElementById(y+'-'+x);
+    let div = document.createElement("div")
+    if(currPlayer === 1) div.className = "piece p1"
+    else div.className = "piece p2"
+    td.appendChild(div)
+    console.log(board)
+    
+  }
 
-}
 
 /** endGame: announce game end */
 
@@ -87,9 +99,9 @@ function endGame(msg) {
 function handleClick(evt) {
   // get x from ID of clicked cell
   let x = +evt.target.id;
-
   // get next spot in column (if none, ignore click)
   let y = findSpotForCol(x);
+  
   if (y === null) {
     return;
   }
