@@ -8,7 +8,7 @@
 const WIDTH = 7;
 const HEIGHT = 6;
 
-const currPlayer = 1; // active player: 1 or 2
+let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])*/
@@ -62,7 +62,10 @@ function findSpotForCol(x) {
   while(i > -1 && board[i][x] !== null) {
     i--
   }
-  board[i][x] = 1;
+  if (i === -1) {
+    return;
+  }
+  board[i][x] = currPlayer;
     return i;
 }
 
@@ -78,10 +81,17 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  if (y === undefined) {
+    alert("You can't click there cutiepie");
+    return;
+  }
   let td = document.getElementById(y+'-'+x);
     let div = document.createElement("div")
-    if(currPlayer === 1) div.className = "piece p1"
-    else div.className = "piece p2"
+    if(currPlayer === 1) {
+    div.className = "piece p1"
+  } else {
+  div.className = "piece p2"
+}
     td.appendChild(div)
     console.log(board)
     
@@ -91,6 +101,7 @@ function placeInTable(y, x) {
 /** endGame: announce game end */
 
 function endGame(msg) {
+  setTimeout(() => alert(`Congratulations Player ${msg}`),10 );
   // TODO: pop up alert message
 }
 
@@ -105,6 +116,7 @@ function handleClick(evt) {
   if (y === null) {
     return;
   }
+  
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
@@ -115,11 +127,13 @@ function handleClick(evt) {
 
   // check for win
   if (checkForWin()) {
-    return endGame(`Player ${currPlayer} won!`);
+    endGame(currPlayer);
   }
+
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
